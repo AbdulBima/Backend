@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const productRoute = require("./routes/productRoutes");
+const subscriberRoute = require("./routes/subsciberRoute");
 const errorMiddlware = require("./middleware/errorMIddleWare");
 const cors = require("cors");
 
@@ -20,11 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/products", productRoute);
-
-app.get("/", (req, res) => {
-	res.send(`hello node api`);
-});
-
+app.use("/api/subscriber", subscriberRoute);
 app.use(errorMiddlware);
 mongoose
 	.connect(MONGO_URL)
