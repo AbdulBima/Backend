@@ -1,5 +1,5 @@
 const {
-	// getAllProducts,
+	getAllSubscribers,
 	// getProductById,
 	createSubscriber,
 	// updateProduct,
@@ -11,7 +11,7 @@ const express = require("express");
 const router = express.Router();
 
 // fetch all products
-// router.get("/", getAllProducts);
+router.get("/", getAllSubscribers);
 
 // // fetch single data from database
 

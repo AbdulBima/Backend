@@ -1,17 +1,17 @@
 const Subscriber = require("../models/subscribersModel");
 const asyncHandler = require("express-async-handler");
 
-//get all products
-// const getAllProducts = asyncHandler(async (req, res) => {
-// 	try {
-// 		const products = await Product.find({});
+// get all products
+const getAllSubscribers = asyncHandler(async (req, res) => {
+	try {
+		const subscribers = await Product.find({});
 
-// 		res.status(200).json(products);
-// 	} catch (error) {
-// 		res.status(500);
-// 		throw new Error(error.message);
-// 	}
-// });
+		res.status(200).json(subscribers);
+	} catch (error) {
+		res.status(500);
+		throw new Error(error.message);
+	}
+});
 
 // //get product by id
 
@@ -87,7 +87,7 @@ const createSubscriber = asyncHandler(async (req, res) => {
 // });
 
 module.exports = {
-	// getAllProducts,
+	getAllSubscribers,
 	// getProductById,
 	createSubscriber,
 	// updateProduct,
