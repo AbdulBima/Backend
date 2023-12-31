@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 // get all products
 const getAllSubscribers = asyncHandler(async (req, res) => {
 	try {
-		const subscribers = await Product.find({});
+		const subscribers = await Subscriber.find({});
 
 		res.status(200).json(subscribers);
 	} catch (error) {
