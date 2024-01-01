@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const productRoute = require("./routes/productRoutes");
 const subscriberRoute = require("./routes/subsciberRoute");
+const messagesRoute = require("./routes/messagesRoute");
 const errorMiddlware = require("./middleware/errorMIddleWare");
 const cors = require("cors");
 
@@ -22,6 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/products", productRoute);
 app.use("/api/subscriber", subscriberRoute);
+app.use("/api/messages", messagesRoute);
+
 app.use(errorMiddlware);
 mongoose
 	.connect(MONGO_URL)
