@@ -2,11 +2,14 @@ const Event = require("../models/eventModel");
 const asyncHandler = require("express-async-handler");
 
 // initializePayment
+
+
 const initializePayment = asyncHandler(async (req, res) =>  {
   const { cart, email, totalAmount } = req.body;
 
   try {
     const paystackApiUrl = 'https://api.paystack.co/transaction/initialize';
+    const paystackSecretKey = process.env.PAYSTAC_KEY;
 
     const paystackResponse = await axios.post(paystackApiUrl, {
       email,
