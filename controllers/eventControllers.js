@@ -47,9 +47,40 @@ const createEvent = asyncHandler(async (req, res) => {
 	}
 });
 
+
+//get all events
+const getAllEvents = asyncHandler(async (req, res) => {
+	try {
+		const events = await Event.find({});
+
+		res.status(200).json(events);
+	} catch (error) {
+		res.status(500);
+		throw new Error(error.message);
+	}
+});
+
+//get event by id
+
+const getEventById = asyncHandler(async (req, res) => {
+	try {
+		const { id } = req.params;
+		const event = await Event.findById(id);
+
+		res.status(200).json(event);
+	} catch (error) {
+		res.status(500);
+		throw new Error(error.message);
+	}
+});
+
+
+
+
 module.exports = {
 	initializePayment,
-	// getProductById,
+  getAllEvents,
+	getEventById,
   createEvent,
 	// updateProduct,
 	// deleteProduct,
