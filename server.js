@@ -12,9 +12,12 @@ const cors = require("cors");
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT;
+const allowedOrigins =[]
 const FRONTEND = process.env.FRONTEND;
+const FRONTEND2 = process.env.FRONTEND2;
+const allowedOrigins =[FRONTEND, FRONTEND2];
 const corsOptions = {
-	origin: FRONTEND,
+	origin: allowedOrigins,
 	optionSuccessStatus: 200,
 };
 
