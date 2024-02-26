@@ -1,5 +1,4 @@
-const {
-	initializePayment, createEvent, getAllEvents, getEventById
+const {createEvent, getAllEvents, getEventById
 	
 } = require("../controllers/eventControllers");
 const Event = require("../models/eventModel");
@@ -11,7 +10,6 @@ const router = express.Router();
 router.get("/", getAllEvents);
 router.get("/:id", getEventById);
 router.post("/", createEvent);
-router.post("/api/paystack/authorization-url", initializePayment);
 
 
 

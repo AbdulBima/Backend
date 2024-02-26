@@ -1,39 +1,7 @@
 const Event = require("../models/eventModel");
 const asyncHandler = require("express-async-handler");
 
-// initializePayment
 
-
-const initializePayment = asyncHandler(async (req, res) =>  {
-  const { cart, email, totalAmount } = req.body;
-
-  try {
-    const paystackApiUrl = 'https://api.paystack.co/transaction/initialize';
-    const paystackSecretKey = process.env.PAYSTAC_KEY;
-
-    const paystackResponse = await axios.post(paystackApiUrl, {
-      email,
-      totalAmount,
-      metadata: { cart },
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${paystackSecretKey}`,
-        "Content-Type": "application/json",
-      },
-    }
-    );
-
-    if (paystackResponse.data && paystackResponse.data.data.authorization_url) {
-      res.status(200).json({ authorization_url: paystackResponse.data.data.authorization_url });
-    } else {
-      res.status(500).json({ error: 'Failed to initialize Paystack transaction' });
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
 
 //create a event
 
@@ -81,7 +49,7 @@ const getEventById = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-	initializePayment,
+
   getAllEvents,
 	getEventById,
   createEvent,

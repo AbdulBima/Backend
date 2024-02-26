@@ -6,6 +6,7 @@ const subscriberRoute = require("./routes/subsciberRoute");
 const readerRoute = require("./routes/readerRoute");
 const messagesRoute = require("./routes/messagesRoute");
 const eventRoute = require("./routes/eventRoute");
+const orderRoute = require("./routes/orderRoute");
 const errorMiddlware = require("./middleware/errorMIddleWare");
 const cors = require("cors");
 
@@ -28,6 +29,7 @@ app.use("/api/subscriber", subscriberRoute);
 app.use("/api/messages", messagesRoute);
 app.use("/api/reader", readerRoute);
 app.use("/api/event", eventRoute);
+app.use("/api/order", orderRoute);
 
 app.use(errorMiddlware);
 mongoose
