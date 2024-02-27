@@ -1,16 +1,29 @@
 const mongoose = require("mongoose");
 
+const productSchema = mongoose.Schema({
+  _id: { type: String, required: true },
+  eventName: { type: String, required: true },
+  eventCreator: { type: String, required: true },
+  dateOfEvent: { type: String, required: true },
+  location: { type: String, required: true },
+  ticket_price: { type: Number, required: true },
+  quantity_of_ticket: { type: Number, required: true },
+  description: { type: String, required: true },
+  available_tickets: { type: Number, required: true },
+  createdAt: { type: Date, required: true },
+  updatedAt: { type: Date, required: true },
+  __v: { type: Number, required: true },
+});
+
 const orderSchema = mongoose.Schema(
-	{
+  {
     orderer: { type: String, required: true },
     order: {
-      type: [String], 
-      default: [],    
+      type: [productSchema],  // Change the type to an array of the product schema
+      default: [],
     },
-
   },
-  
-	{ timestamps: true }
+  { timestamps: true }
 );
 
 const Order = mongoose.model(
