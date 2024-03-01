@@ -46,6 +46,30 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 
+const getOrdersForEventCreator = asyncHandler(async (req, res) => {
+	const {eventCreator} = req.params;
+	console.log(eventCreator)
+  // const eventName = req.params.eventName;
+	try {
+		const orders = await Order.find({});
+
+		const filteredOrders = orders.map(order => ({
+      ...order.toObject(),
+      order: order.order.filter(event => event.eventCreator === eventCreator),
+    }));
+
+		   // Filter out orders without matching events
+			 const validOrders = filteredOrders.filter(order => order.order.length > 0);
+
+			 // You can send the validOrders as the response or process them further
+			 res.json(validOrders);
+	} catch (error) {
+		res.status(500);
+		throw new Error(error.message);
+	}
+});
+
+
 
 
 module.exports = {
@@ -53,6 +77,7 @@ module.exports = {
   getAllOrders,
 	getOrderById,
   createOrder,
+	getOrdersForEventCreator,
 	// updateProduct,
 	// deleteProduct,
 };
