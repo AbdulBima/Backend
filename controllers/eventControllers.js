@@ -45,6 +45,24 @@ const getEventById = asyncHandler(async (req, res) => {
 	}
 });
 
+// Express route to fetch events by eventCreator
+
+const getEventCreator = asyncHandler(async (req, res) => {
+
+	const { eventCreator } = req.params;
+	
+			try {
+			// Use Mongoose to find events with the specified eventCreator
+			const events = await Event.find({ eventCreator });
+	
+			// Return the events
+			res.json(events);
+	} catch (error) {
+		res.status(500);
+		throw new Error(error.message);
+	}
+});
+
 
 
 
@@ -52,7 +70,8 @@ module.exports = {
 
   getAllEvents,
 	getEventById,
-  createEvent,
+	createEvent,
+	getEventCreator,
 	// updateProduct,
 	// deleteProduct,
 };

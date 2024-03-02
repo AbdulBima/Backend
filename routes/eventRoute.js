@@ -1,4 +1,4 @@
-const {createEvent, getAllEvents, getEventById
+const {createEvent, getAllEvents, getEventById, getEventCreator
 	
 } = require("../controllers/eventControllers");
 const Event = require("../models/eventModel");
@@ -10,6 +10,8 @@ const router = express.Router();
 router.get("/", getAllEvents);
 router.get("/:id", getEventById);
 router.post("/", createEvent);
+router.get("/creator/:eventCreator", getEventCreator);
+
 
 
 
