@@ -14,7 +14,7 @@ const router = express.Router();
 router.get("/", getAllOrders);
 router.get("/:id", getOrderById);
 router.post("/", createOrder);
-router.get("/od/:eventCreator", getOrdersForEventCreator);
+router.get("/od/:eventCreator/:eventName", getOrdersForEventCreator);
 
 
 

@@ -53,7 +53,7 @@ const getEventCreator = asyncHandler(async (req, res) => {
 	
 			try {
 			// Use Mongoose to find events with the specified eventCreator
-			const events = await Event.find({ eventCreator });
+			const events = await Event.find({ "eventCreator" : eventCreator });
 	
 			// Return the events
 			res.json(events);

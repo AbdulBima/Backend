@@ -47,15 +47,15 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 
 const getOrdersForEventCreator = asyncHandler(async (req, res) => {
-	const {eventCreator} = req.params;
-	console.log(eventCreator)
+	const {eventCreator, eventName} = req.params;
+	console.log(eventCreator, eventName)
   // const eventName = req.params.eventName;
 	try {
 		const orders = await Order.find({});
 
 		const filteredOrders = orders.map(order => ({
       ...order.toObject(),
-      order: order.order.filter(event => event.eventCreator === eventCreator),
+      order: order.order.filter(event => event.eventCreator === eventCreator && event.eventName === eventName),
     }));
 
 		   // Filter out orders without matching events
