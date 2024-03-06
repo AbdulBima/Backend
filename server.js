@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const bcrypt = require('bcrypt');
 const mongoose = require("mongoose");
 const productRoute = require("./routes/productRoutes");
 const subscriberRoute = require("./routes/subsciberRoute");

@@ -1,14 +1,43 @@
 const EventUser = require("../models/eventUser");
 const asyncHandler = require("express-async-handler");
+const bcrypt = require('bcrypt');
 
 
 
 //create a eventUser
 
 const createEventUser = asyncHandler(async (req, res) => {
-	try {
+	
+
+	const {
+		first_name,
+		last_name,
+		email, 
+		password,
+		password_confirmation,
+		marketing_accept,
+	} = req.body;
+	
+		try {
+			// Check whether the email is registered with findOne
+	
+			// Hash the password
+			const saltRounds = 10;
+			const hashedPassword = await bcrypt.hash(password, saltRounds);
+	
+			// Create a new user with the hashed password
+			const newUser = new User({
+				first_name,
+				last_name,
+				email,
+				password: hashedPassword,
+				password_confirmation,
+				marketing_accept,
+			});
+
+
 		const eventUser = await EventUser.create(
-			req.body
+			newUser
 		);
 		res.status(200).json(eventUser);
 	} catch (error) {
