@@ -5,46 +5,44 @@ const bcrypt = require('bcrypt');
 
 
 //create a eventUser
-
 const createEventUser = asyncHandler(async (req, res) => {
-	
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    password_confirmation,
+    marketing_accept,
+  } = req.body;
 
-	const {
-		first_name,
-		last_name,
-		email, 
-		password,
-		password_confirmation,
-		marketing_accept,
-	} = req.body;
-	
-		try {
-			// Check whether the email is registered with findOne
-	
-			// Hash the password
-			const saltRounds = 10;
-			const hashedPassword = await bcrypt.hash(password, saltRounds);
-	
-			// Create a new user with the hashed password
-			const newUser = new User({
-				first_name,
-				last_name,
-				email,
-				password: hashedPassword,
-				password_confirmation,
-				marketing_accept,
-			});
+  try {
+    // Check if the email already exists
+    const existingUser = await EventUser.findOne({ email });
 
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email is already registered' });
+    }
 
-		const eventUser = await EventUser.create(
-			newUser
-		);
-		res.status(200).json(eventUser);
-	} catch (error) {
-		console.log(error.message);
-		res.status(500);
-		throw new Error(error.message);
-	}
+    // Hash the password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Create a new user with the hashed password
+    const newUser = new EventUser({
+      first_name,
+      last_name,
+      email,
+      password: hashedPassword,
+      password_confirmation,
+      marketing_accept,
+    });
+
+    const eventUser = await newUser.save();
+    res.status(201).json(eventUser);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 
