@@ -46,6 +46,38 @@ const createEventUser = asyncHandler(async (req, res) => {
 });
 
 
+//login eventUser
+
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if the user with the provided email exists
+    const user = await EventUser.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Compare the provided password with the stored hashed password
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Passwords match, so you can proceed with user authentication
+    // For example, you can generate a JWT token and send it as a response
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
 //get all eventUsers
 const getAllEventsUsers = asyncHandler(async (req, res) => {
 	try {
@@ -82,5 +114,6 @@ module.exports = {
   getAllEventsUsers,
 	getEventUserById,
 	createEventUser,
+  loginUser,
 	
 };
