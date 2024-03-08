@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", getAllEventsUsers);
 router.get("/:id", getEventUserById);
 router.post("/", createEventUser);
-router.post("/", loginUser);
+router.post("/login", loginUser);
 
 
 
