@@ -19,10 +19,6 @@ const eventUserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    password_confirmation: {
-      type: String,
-      required: true,
-    },
     marketing_accept: {
       type: Boolean,
       default: false,

@@ -11,7 +11,6 @@ const createEventUser = asyncHandler(async (req, res) => {
     last_name,
     email,
     password,
-    password_confirmation,
     marketing_accept,
   } = req.body;
 
@@ -33,7 +32,6 @@ const createEventUser = asyncHandler(async (req, res) => {
       last_name,
       email,
       password: hashedPassword,
-      password_confirmation,
       marketing_accept,
     });
 
