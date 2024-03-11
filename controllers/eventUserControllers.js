@@ -1,7 +1,7 @@
 const EventUser = require("../models/eventUser");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken')
 
 
 //create a eventUser
@@ -56,20 +56,31 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await EventUser.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Cannot find user ' });
     }
 
     // Compare the provided password with the stored hashed password
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'password incorrect' });
     }
 
     // Passwords match, so you can proceed with user authentication
     // For example, you can generate a JWT token and send it as a response
 
-    res.status(200).json(user);
+    const token = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+
+      },
+     
+      "secret123"
+    
+    )
+
+    res.status(200).json({ token, userID : user._id }); 
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
