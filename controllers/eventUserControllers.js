@@ -4,6 +4,30 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
 
+
+//create a verifyToken
+const verifyToken = asyncHandler(async (req, res) => {
+  
+  const token = req.body.token;
+
+  if (!token) {
+    return res.json({ success: false, message: 'Missing token in the request body' });
+  }
+
+  try {
+    // Verify and decode the token
+    const decoded = jwt.verify(token, "secret123");
+
+    // If verification is successful, return true
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Token verification error:', error.message);
+    // If verification fails, return false
+    res.json({ success: false, message: 'Invalid token' });
+  }
+});
+
+
 //create a eventUser
 const createEventUser = asyncHandler(async (req, res) => {
   const {
@@ -66,17 +90,19 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // Passwords match, so you can proceed with user authentication
     // For example, you can generate a JWT token and send it as a response
+    const expiresIn = 3600; // 1 hour in seconds
 
     const token = jwt.sign(
       {
+        userId: user._id,
         name: user.name,
         email: user.email,
-
       },
-     
-      "secret123"
-    
-    )
+      "secret123",
+      { expiresIn }
+    );
+
+    res.status(200).json({ token, userID: user._id, expiresIn });
 
     res.status(200).json({ token, userID : user._id }); 
   } catch (error) {
@@ -124,5 +150,6 @@ module.exports = {
 	getEventUserById,
 	createEventUser,
   loginUser,
+  verifyToken,
 	
 };
