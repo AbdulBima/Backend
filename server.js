@@ -12,7 +12,7 @@ const eventRoute = require("./routes/eventRoute");
 const eventUserRoute = require("./routes/eventUserRoute");
 const orderRoute = require("./routes/orderRoute");
 const errorMiddlware = require("./middleware/errorMIddleWare");
-const cors = require("cors");
+// const cors = require("cors");
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT;
@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 
 app.use(cookieParser());
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
