@@ -6,25 +6,31 @@ const jwt = require('jsonwebtoken')
 
 
 //create a verifyToken
-const verifyToken = asyncHandler(async (req, res) => {
-  
-  const token = req.body.token;
+const verifyToken = asyncHandler(async (req, res) =>  {
+  const token = req.cookies.token;
 
   if (!token) {
-    return res.json({ success: false, message: 'Missing token in the request body' });
+      return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  try {
-    // Verify and decode the token
-    const decoded = jwt.verify(token, "secret123");
+  // Verify token
+  jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+          // Check if token has expired
+          if (err.name === 'TokenExpiredError') {
+              // Clear cookie and return unauthorized
+              res.clearCookie('token');
+              return res.status(401).json({ message: 'Session expired. Please log in again.' });
+          }
+          // Other token verification errors
+          return res.status(401).json({ message: 'Unauthorized' });
+      }
+      // Token is valid, attach userId to request object
+      req.userId = decoded.userId;
+      // Token verification successful, return success response
+      return res.status(200).json({ message: 'Token verified', userId: decoded.userId , email: decoded.email});
+  });
 
-    // If verification is successful, return true
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Token verification error:', error.message);
-    // If verification fails, return false
-    res.json({ success: false, message: 'Invalid token' });
-  }
 });
 
 
