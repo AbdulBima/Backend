@@ -72,6 +72,7 @@ const createEventUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  const secretKey = 'yourSecretKey';
 
   try {
     // Check if the user with the provided email exists
@@ -89,22 +90,19 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     // Passwords match, so you can proceed with user authentication
-    // For example, you can generate a JWT token and send it as a response
-    const expiresIn = 3600; // 1 hour in seconds
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+  }
 
-    const token = jwt.sign(
-      {
-        userId: user._id,
-        name: user.name,
-        email: user.email,
-      },
-      "secret123",
-      { expiresIn }
-    );
+  // Generate JWT token
+  const token = jwt.sign({
+    userId: user._id,
+    email: user.email,
+  }, secretKey, { expiresIn: '1h' });
 
-    res.status(200).json({ token, userID: user._id, expiresIn });
-
-    res.status(200).json({ token, userID : user._id }); 
+  // Set token as cookie
+  res.cookie('token', token, { httpOnly: true, expires: new Date(Date.now() + 3600000) }); // Expires in 1 hour
+  res.json({ message: 'Login successful' });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
