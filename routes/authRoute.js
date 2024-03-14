@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser'); // Import cookie-parser
+
+// Use cookie-parser middleware
+router.use(cookieParser());
+
 
 router.get('/verify-token', (req, res) => {
   try {
