@@ -6,31 +6,31 @@ const jwt = require('jsonwebtoken')
 
 
 //create a verifyToken
-const verifyToken = asyncHandler(async (req, res) => {
-  try {
-    const token = req.cookies.token;
+// const verifyToken = asyncHandler(async (req, res) => {
+//   try {
+//     const token = req.cookies.token;
 
-    if (!token) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
+//     if (!token) {
+//       return res.status(401).json({ message: 'Unauthorized' });
+//     }
 
-    // Verify token
-    const decoded = jwt.verify(token, secretKey);
+//     // Verify token
+//     const decoded = jwt.verify(token, secretKey);
 
-    // Token verification successful, attach userId to request object and return success response
-    req.userId = decoded.userId;
-    return res.status(200).json({ message: 'Token verified', userId: decoded.userId, email: decoded.email });
-  } catch (error) {
-    // Handle token verification errors
-    if (error.name === 'TokenExpiredError') {
-      // Clear cookie and return unauthorized
-      res.clearCookie('token');
-      return res.status(401).json({ message: 'Session expired. Please log in again.' });
-    }
-    // Other token verification errors
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-});
+//     // Token verification successful, attach userId to request object and return success response
+//     req.userId = decoded.userId;
+//     return res.status(200).json({ message: 'Token verified', userId: decoded.userId, email: decoded.email });
+//   } catch (error) {
+//     // Handle token verification errors
+//     if (error.name === 'TokenExpiredError') {
+//       // Clear cookie and return unauthorized
+//       res.clearCookie('token');
+//       return res.status(401).json({ message: 'Session expired. Please log in again.' });
+//     }
+//     // Other token verification errors
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
+// });
 
 
 //create a eventUser
@@ -153,6 +153,6 @@ module.exports = {
 	getEventUserById,
 	createEventUser,
   loginUser,
-  verifyToken,
+  // verifyToken,
 	
 };

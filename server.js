@@ -11,6 +11,7 @@ const messagesRoute = require("./routes/messagesRoute");
 const eventRoute = require("./routes/eventRoute");
 const eventUserRoute = require("./routes/eventUserRoute");
 const orderRoute = require("./routes/orderRoute");
+const authRoute = require("./routes/authRoute");
 const errorMiddlware = require("./middleware/errorMIddleWare");
 const cors = require("cors");
 
@@ -34,7 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
-
+app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
 app.use("/api/subscriber", subscriberRoute);
 app.use("/api/messages", messagesRoute);
