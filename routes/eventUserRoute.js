@@ -2,7 +2,6 @@ const {  getAllEventsUsers,
 	getEventUserById,
 	createEventUser,
 	loginUser,
-	verifyToken,
 	
 } = require("../controllers/eventUserControllers");
 const EventUser = require("../models/eventUser");
@@ -15,7 +14,6 @@ router.get("/", getAllEventsUsers);
 router.get("/:id", getEventUserById);
 router.post("/", createEventUser);
 router.post("/login", loginUser);
-router.get("/verify-token", verifyToken);
 
 
 
