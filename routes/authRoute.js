@@ -5,16 +5,18 @@ const jwt = require('jsonwebtoken');
 router.get('/verify-token', (req, res) => {
   try {
     const token = req.cookies.token;
+    const secretKey = 'yourSecretKey';
+
 
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, secretKey);
 
     // Token verification successful
-    res.status(200).json({ message: 'Token verified', userId: decoded.userId, email: decoded.email });
+    res.status(200).json({ message: 'Token verified' });
   } catch (error) {
     // Handle token verification errors
     if (error.name === 'TokenExpiredError') {
