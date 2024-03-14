@@ -15,7 +15,7 @@ router.get("/", getAllEventsUsers);
 router.get("/:id", getEventUserById);
 router.post("/", createEventUser);
 router.post("/login", loginUser);
-router.post("/verify-token", verifyToken);
+router.get("/verify-token", verifyToken);
 
 
 
