@@ -20,8 +20,10 @@ router.get('/verify-token', (req, res) => {
     // Verify token
     const decoded = jwt.verify(token, secretKey);
 
+    const userId = decoded.userId;
+
     // Token verification successful
-    res.status(200).json({ message: 'Token verified' });
+    res.status(200).json({ userId: userId, message: 'Token verified' });
   } catch (error) {
     // Handle token verification errors
     if (error.name === 'TokenExpiredError') {
