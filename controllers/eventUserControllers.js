@@ -2,13 +2,6 @@ const EventUser = require("../models/eventUser");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
-const cookieParser = require('cookie-parser'); // Import cookie-parser
-
-// Use cookie-parser middleware
-router.use(cookieParser());
-
-
-
 
 
 //create a eventUser
