@@ -3,6 +3,7 @@ const {
 	getOrderById,
   createOrder,
 	getOrdersForEventCreator,
+	getTicketCountForEvent,
 	
 } = require("../controllers/orderControllers");
 const Event = require("../models/orderModel");
@@ -15,6 +16,8 @@ router.get("/", getAllOrders);
 router.get("/:id", getOrderById);
 router.post("/", createOrder);
 router.get("/od/:eventCreator/:eventName", getOrdersForEventCreator);
+router.get("/eventticketcount/:id", getTicketCountForEvent);
+
 
 
 
