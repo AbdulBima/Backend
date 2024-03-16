@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const eventSchema = mongoose.Schema(
 	{
     eventName: { type: String, required: true },
-  eventCreator:  type: String, required: true },
+  eventCreator: { type: String, required: true },
   dateOfEvent: { type: String, required: true }, // You might want to use Date type here if storing as a date
   location: { type: String, required: true },
   ticket_price: { type: Number, required: true },
