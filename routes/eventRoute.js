@@ -6,7 +6,7 @@ const express = require("express");
 
 const router = express.Router();
 
-
+router.get("/creator/:eventCreator", getEventCreator);
 router.get("/", getAllEvents);
 router.get("/:id", getEventById);
 router.post("/", createEvent);
