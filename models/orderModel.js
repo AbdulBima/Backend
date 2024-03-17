@@ -17,7 +17,9 @@ const productSchema = mongoose.Schema({
 
 const orderSchema = mongoose.Schema(
   {
-    orderer: { type: mongoose.Schema.Types.ObjectId, ref: "eventusers" , required: true},
+    ordererId : { type: mongoose.Schema.Types.ObjectId, ref: "eventusers" , required: true},
+    ordererEmail: { type: String, required: true },
+    orderAmount: { type: Number, required: true },
     order: {
       type: [productSchema],  // Change the type to an array of the product schema
       default: [],
