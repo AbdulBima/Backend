@@ -36,7 +36,7 @@ const getAllEvents = asyncHandler(async (req, res) => {
 const getEventById = asyncHandler(async (req, res) => {
 	try {
 		const { id } = req.params;
-		const event = await Event.find({ eventCreator: id });
+		const event = await Event.findById(id);
 
 		res.status(200).json(event);
 	} catch (error) {
