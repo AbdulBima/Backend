@@ -10,7 +10,6 @@ router.get("/creator/:eventCreator", getEventCreator);
 router.get("/", getAllEvents);
 router.get("/:id", getEventById);
 router.post("/", createEvent);
-router.get("/creator/:eventCreator", getEventCreator);
 
 
 
