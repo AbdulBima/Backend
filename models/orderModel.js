@@ -9,7 +9,6 @@ const productSchema = mongoose.Schema({
   ticket_price: { type: Number, required: true },
   quantity_of_ticket: { type: Number, required: true },
   description: { type: String, required: true },
-  available_tickets: { type: Number, required: true },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
   __v: { type: Number, required: true },
