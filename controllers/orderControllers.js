@@ -69,34 +69,29 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 	}
 });
 
-const getTicketCountForEvent = asyncHandler(async (req, res) => {
-	const { id } = req.params;
-	console.log(id);
-	try {
-			const orders = await Order.find({});
+const getTicketCountForEvent = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Find all orders
+    const orders = await Order.find({});
+    
+    // Calculate the total quantity of tickets purchased for the event across all orders
+    let totalTicketsPurchased = 0;
+    orders.forEach(order => {
+      order.order.forEach(event => {
+        if (event._id.toString() === id) {
+          totalTicketsPurchased += event.quantity_of_ticket_purchased;
+        }
+      });
+    });
 
-			// Filter orders to contain only the relevant events
-			const filteredOrders = orders.map(order => ({
-					...order.toObject(),
-					order: order.order.filter(event => event._id === id),
-			}));
+    res.json({ totalTicketsPurchased });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
-			// Filter out orders without matching events
-			const validOrders = filteredOrders.filter(order => order.order.length > 0);
-
-			// Calculate the sum of tickets purchased for each event
-			const ticketsSum = validOrders.reduce((total, order) => {
-					const eventTicketsSum = order.order.reduce((sum, event) => sum + event.quantity_of_ticket_purchased, 0);
-					return total + eventTicketsSum;
-			}, 0);
-
-			// Return the total number of tickets purchased
-			res.json({ totalTicketsPurchased: ticketsSum });
-	} catch (error) {
-			console.log(error.message);
-			res.status(500).json({ error: error.message });
-	}
-});
 
 
 
