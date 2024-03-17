@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 
 
-//create a event
+//create a order
 
 const createOrder = asyncHandler(async (req, res) => {
 	try {
@@ -46,16 +46,16 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 
-const getOrdersForEventCreator = asyncHandler(async (req, res) => {
-	const {eventCreator, eventName} = req.params;
-	console.log(eventCreator, eventName)
+const getOrdersForAnEvent = asyncHandler(async (req, res) => {
+	const {eventcreator, eventId} = req.params;
+	console.log(eventcreator, eventId)
   // const eventName = req.params.eventName;
 	try {
 		const orders = await Order.find({});
 
 		const filteredOrders = orders.map(order => ({
       ...order.toObject(),
-      order: order.order.filter(event => event.eventCreator === eventCreator && event.eventName === eventName),
+      order: order.order.filter(event => event.eventCreator === eventcreator && event._id === eventId),
     }));
 
 		   // Filter out orders without matching events
@@ -86,7 +86,7 @@ const getTicketCountForEvent = asyncHandler(async (req, res) => {
 
 			// Calculate the sum of tickets purchased for each event
 			const ticketsSum = validOrders.reduce((total, order) => {
-					const eventTicketsSum = order.order.reduce((sum, event) => sum + event.quantity_of_ticket, 0);
+					const eventTicketsSum = order.order.reduce((sum, event) => sum + event.quantity_of_ticket_purchased, 0);
 					return total + eventTicketsSum;
 			}, 0);
 
@@ -105,7 +105,7 @@ module.exports = {
   getAllOrders,
 	getOrderById,
   createOrder,
-	getOrdersForEventCreator,
+	getOrdersForAnEvent,
 	getTicketCountForEvent,
 	// deleteProduct,
 };
