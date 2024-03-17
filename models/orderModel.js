@@ -8,6 +8,7 @@ const productSchema = mongoose.Schema({
   location: { type: String, required: true },
   ticket_price: { type: Number, required: true },
   quantity_of_ticket: { type: Number, required: true },
+  quantity_of_ticket_purchased: { type: Number, required: true },
   description: { type: String, required: true },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
