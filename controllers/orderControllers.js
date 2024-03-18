@@ -73,7 +73,7 @@ const getTicketCountForEvent = async (req, res) => {
   const { id } = req.params;
   try {
 
-		comsole.log(id);
+		console.log(id);
     // Find all orders
     const orders = await Order.find({});
 
