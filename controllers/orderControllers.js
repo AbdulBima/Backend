@@ -72,17 +72,23 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 const getTicketCountForEvent = async (req, res) => {
   const { id } = req.params;
   try {
+
+		comsole.log(id);
     // Find all orders
     const orders = await Order.find({});
-    
-    // Calculate the total quantity of tickets purchased for the event across all orders
+
+    // Initialize total tickets purchased
     let totalTicketsPurchased = 0;
+
+    // Iterate through each order
     orders.forEach(order => {
-      order.order.forEach(event => {
-        if (event._id.toString() === id) {
-          totalTicketsPurchased += event.quantity_of_ticket_purchased;
-        }
-      });
+      // Find the event with the specified ID in the order's 'order' array
+      const event = order.order.find(event => event._id.toString() === id);
+      
+      // If the event is found, add its 'quantity_of_ticket_purchased' to the total
+      if (event) {
+        totalTicketsPurchased += event.quantity_of_ticket_purchased;
+      }
     });
 
     res.json({ totalTicketsPurchased });
@@ -91,7 +97,6 @@ const getTicketCountForEvent = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 
 
