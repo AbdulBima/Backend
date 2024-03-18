@@ -83,7 +83,7 @@ const getTicketCountForEvent = async (req, res) => {
       // Iterate through each event in the order
       order.order.forEach(event => {
         // Check if the event ID matches the specified ID
-        if (event._id === id) {
+        if (event._id.toString() === id) {
           // If it matches, add its quantity_of_ticket_purchased to the total
           totalTicketsPurchased += event.quantity_of_ticket_purchased;
         }
