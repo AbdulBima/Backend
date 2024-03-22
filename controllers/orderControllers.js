@@ -50,29 +50,31 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 	const { eventcreator, eventId } = req.params;
 	console.log(eventcreator, eventId)
 	try {
-			// Find orders where the order array contains at least one product with matching eventCreator and _id
-			const orders = await Order.find({
-					"order": {
-							$elemMatch: {
-									"eventCreator": eventcreator,
-									"_id": eventId
-							}
-					}
-			});
+			const orders = await Order.aggregate([
+					{ $match: { 
+							"order.eventCreator": eventcreator,
+							"order._id": eventId
+					}},
+					{ $unwind: "$order" },
+					{ $match: {
+							"order.eventCreator": eventcreator,
+							"order._id": eventId
+					}},
+					{ $group: {
+							_id: "$_id",
+							ordererEmail: { $first: "$ordererEmail" },
+							orderId: { $first: "$_id" },
+							quantity_of_ticket_purchased: { $sum: "$order.quantity_of_ticket_purchased" },
+							ticket_price: { $first: "$order.ticket_price" }
+					}}
+			]);
 
-			// Modify the response data to include only desired fields
-			const modifiedResponse = orders.map(order => ({
-					ordererEmail: order.ordererEmail,
-					orderId: order._id,
-					quantity_of_ticket_purchased: order.order[0].quantity_of_ticket_purchased,
-					ticket_price: order.order[0].ticket_price
-			}));
-
-			res.json(modifiedResponse);
+			res.json(orders);
 	} catch (error) {
 			res.status(500).json({ error: 'Internal server error' });
 	}
 });
+
 
 
 
