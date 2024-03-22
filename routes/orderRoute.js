@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/", getAllOrders);
 router.get("/:id", getOrderById);
 router.post("/", createOrder);
-router.get("/od/:eventCreator/:eventName", getOrdersForAnEvent);
+router.get("/od/:eventcreator/:eventId", getOrdersForAnEvent);
 router.get("/eventticketcount/:id", getTicketCountForEvent);
 
 
