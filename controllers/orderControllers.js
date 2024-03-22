@@ -59,21 +59,17 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 					}
 			});
 
-			// Filter out only the orders that have at least one product matching the criteria
 			const filteredOrders = orders.filter(order => 
 					order.order.some(product => 
 							product.eventCreator === eventcreator && product._id === eventId
 					)
 			);
 
-			// Extract desired fields from filtered orders
 			const extractedData = filteredOrders.map(order => {
-					// Find the matched product inside the "order" array
 					const matchedProduct = order.order.find(product =>
 							product.eventCreator === eventcreator && product._id === eventId
 					);
 
-					// Extract desired fields and return as an object
 					return {
 							mainId: order._id,
 							orderId: matchedProduct._id,
@@ -84,7 +80,7 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 					};
 			});
 
-			res.json(extractedData);
+			res.json(orders);
 	} catch (error) {
 			res.status(500).json({ error: 'Internal server error' });
 	}
