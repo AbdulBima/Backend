@@ -60,11 +60,20 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 					}
 			});
 
-			res.json(orders);
+			// Modify the response data to include only desired fields
+			const modifiedResponse = orders.map(order => ({
+					ordererEmail: order.ordererEmail,
+					orderId: order._id,
+					quantity_of_ticket_purchased: order.order[0].quantity_of_ticket_purchased,
+					ticket_price: order.order[0].ticket_price
+			}));
+
+			res.json(modifiedResponse);
 	} catch (error) {
 			res.status(500).json({ error: 'Internal server error' });
 	}
 });
+
 
 
 const getTicketCountForEvent = async (req, res) => {
