@@ -74,7 +74,7 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 					ticket_price: order.order[0].ticket_price
 			}));
 
-			res.json(modifiedResponse);
+			res.json(modifiedResponse,filteredOrders);
 	} catch (error) {
 			res.status(500).json({ error: 'Internal server error' });
 	}
