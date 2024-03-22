@@ -47,27 +47,25 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 
 const getOrdersForAnEvent = asyncHandler(async (req, res) => {
-	const {eventcreator, eventId} = req.params;
+	const { eventcreator, eventId } = req.params;
 	console.log(eventcreator, eventId)
-  // const eventName = req.params.eventName;
 	try {
-		const orders = await Order.find({});
+			// Find orders where the order array contains at least one product with matching eventCreator and _id
+			const orders = await Order.find({
+					"order": {
+							$elemMatch: {
+									"eventCreator": eventcreator,
+									"_id": eventId
+							}
+					}
+			});
 
-		const filteredOrders = orders.map(order => ({
-      ...order.toObject(),
-      order: order.order.filter(event => event.eventCreator === eventcreator && event._id === eventId),
-    }));
-
-		   // Filter out orders without matching events
-			 const validOrders = filteredOrders.filter(order => order.order.length > 0);
-
-			 // You can send the validOrders as the response or process them further
-			 res.json(validOrders);
+			res.json(orders);
 	} catch (error) {
-		res.status(500);
-		throw new Error(error.message);
+			res.status(500).json({ error: 'Internal server error' });
 	}
 });
+
 
 const getTicketCountForEvent = async (req, res) => {
   const { id } = req.params;
