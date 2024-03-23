@@ -65,7 +65,7 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 
     // Map matched orders to include ordererId and ordererEmail
     const responseObject = matchedOrders.map(order => ({
-        ordererId: order.ordererId,
+        orderId: order._id,
         ordererEmail: order.ordererEmail,
         matchedOrder: order.order.find(event => event._id === eventId)
     }));
