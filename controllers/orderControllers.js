@@ -45,20 +45,21 @@ const getOrderById = asyncHandler(async (req, res) => {
 	}
 });
 
-const getOrderByOrdererId = asyncHandler(async (req, res) => {
-	const { ordererId } = req.params;
+const getOrdersByOrdererId = asyncHandler(async (req, res) => {
+  const { ordererId } = req.params;
 
   try {
-    const order = await Order.findOne({ ordererId });
-    if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+    const orders = await Order.find({ ordererId });
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: 'Orders not found for this user' });
     }
-    res.json(order);
+    res.json(orders);
   } catch (error) {
-    console.error('Error fetching order:', error);
+    console.error('Error fetching orders:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 	const { eventcreator, eventId } = req.params;
@@ -132,6 +133,6 @@ module.exports = {
   createOrder,
 	getOrdersForAnEvent,
 	getTicketCountForEvent,
-	getOrderByOrdererId,
+	getOrdersByOrdererId,
 	// deleteProduct,
 };

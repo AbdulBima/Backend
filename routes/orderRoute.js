@@ -1,7 +1,7 @@
 const {
 	getAllOrders,
 	getOrderById,
-	getOrderByOrdererId,
+	getOrdersByOrdererId,
   createOrder,
 	getOrdersForAnEvent,
 	getTicketCountForEvent,
@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.get("/", getAllOrders);
 router.get("/:id", getOrderById);
-router.get("/orders/:ordererId", getOrderByOrdererId);
+router.get("/orders/:ordererId", getOrdersByOrdererId);
 router.post("/", createOrder);
 router.get("/od/:eventcreator/:eventId", getOrdersForAnEvent);
 router.get("/eventticketcount/:id", getTicketCountForEvent);
