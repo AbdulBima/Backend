@@ -59,28 +59,19 @@ const getOrdersForAnEvent = asyncHandler(async (req, res) => {
 					}
 			});
 
-			const filteredOrders = orders.filter(order => 
-					order.order.some(product => 
-							product.eventCreator === eventcreator && product._id === eventId
-					)
-			);
+			const matchedOrders = orders.filter(order =>
+        order.order.some(event => event._id === eventId)
+    );
 
-			const extractedData = filteredOrders.map(order => {
-					const matchedProduct = order.order.find(product =>
-							product.eventCreator === eventcreator && product._id === eventId
-					);
+    // Map matched orders to include ordererId and ordererEmail
+    const responseObject = matchedOrders.map(order => ({
+        ordererId: order.ordererId,
+        ordererEmail: order.ordererEmail,
+        matchedOrder: order.order.find(event => event._id === eventId)
+    }));
 
-					return {
-							mainId: order._id,
-							orderId: matchedProduct._id,
-							ordererEmail: order.ordererEmail,
-							quantity_of_ticket_purchased: matchedProduct.quantity_of_ticket_purchased,
-							ticket_price: matchedProduct.ticket_price
-							// Add more fields as needed
-					};
-			});
-
-			res.json(orders);
+    // Sending the response as JSON
+    res.json(responseObject);
 	} catch (error) {
 			res.status(500).json({ error: 'Internal server error' });
 	}
