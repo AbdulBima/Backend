@@ -86,6 +86,18 @@ res.cookie('token', token, { httpOnly: true, expires: new Date(Date.now() + 3600
 });
 
 
+//logout user
+const logoutUser = asyncHandler(async (req, res) => {
+  try {
+    // Clear the token cookie by setting an expired date
+    res.cookie('token', '', { expires: new Date(0), httpOnly: true, secure: true, sameSite: 'None' });
+    res.json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 //get all eventUsers
 const getAllEventsUsers = asyncHandler(async (req, res) => {
@@ -124,6 +136,7 @@ module.exports = {
 	getEventUserById,
 	createEventUser,
   loginUser,
+  logoutUser,
   // verifyToken,
 	
 };

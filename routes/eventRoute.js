@@ -14,5 +14,4 @@ router.post("/", createEvent);
 
 
 
-
 module.exports = router;
