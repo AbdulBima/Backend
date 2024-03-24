@@ -33,7 +33,7 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({ origin: ['http://localhost:3000', '172.20.10.2:3000'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://ticketrix.pages.dev'], credentials: true }));
 
 app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
