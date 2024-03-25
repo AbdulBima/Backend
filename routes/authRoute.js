@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser'); // Import cookie-parser
 router.use(cookieParser());
 
 
-router.get('/verify-token', (req, res) => {
+router.post('/verify-token', (req, res) => {
   try {
     const token = req.cookies.token;
     const secretKey = 'yourSecretKey';
