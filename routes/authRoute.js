@@ -14,6 +14,7 @@ router.post('/verify-token', (req, res) => {
 
 
     if (!token) {
+      console.log('no token found');
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
@@ -25,6 +26,7 @@ router.post('/verify-token', (req, res) => {
     // Token verification successful
     res.status(200).json({ userId: userId, message: 'Token verified' });
   } catch (error) {
+    console.log(error);
     // Handle token verification errors
     if (error.name === 'TokenExpiredError') {
       // Clear cookie and return unauthorized
