@@ -76,8 +76,14 @@ const loginUser = asyncHandler(async (req, res) => {
     email: user.email,
   }, secretKey, { expiresIn: '1h' });
 
-  // Set token as cookie
-res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None' , expires: new Date(Date.now() + 3600000),   sameSite: 'None', secure: true});
+    // Set token as cookie
+    
+    res.cookie('token', token,
+      { httpOnly: true, 
+        secure: true,
+        sameSite: 'none',
+        expires: new Date(Date.now() + 3600000)
+      });
   res.json({ message: 'Login successful' });
   } catch (error) {
     console.error(error.message);
