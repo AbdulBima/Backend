@@ -62,34 +62,25 @@ const loginUser = asyncHandler(async (req, res) => {
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
-      return res.status(401).json({ error: 'password incorrect' });
+      return res.status(401).json({ error: 'Password incorrect' });
     }
 
     // Passwords match, so you can proceed with user authentication
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-  }
 
-  // Generate JWT token
-  const token = jwt.sign({
-    userId: user._id,
-    email: user.email,
-  }, secretKey, { expiresIn: '1h' });
+    // Generate JWT token
+    const token = jwt.sign({
+      userId: user._id,
+      email: user.email,
+    }, secretKey, { expiresIn: '1h' });
 
-    // Set token as cookie
-    
-    res.cookie('token', token,
-      { httpOnly: true, 
-        secure: true,
-        sameSite: 'none',
-        expires: new Date(Date.now() + 3600000)
-      });
-  res.json({ message: 'Login successful' });
+    // Send the token back to the client
+    res.json({ token: token, message: 'Login successful' });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 //logout user

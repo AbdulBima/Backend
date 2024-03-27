@@ -7,34 +7,24 @@ const cookieParser = require('cookie-parser'); // Import cookie-parser
 router.use(cookieParser());
 
 
-router.post('/verify-token', (req, res) => {
+router.get('/verifyToken', (req, res) => {
+  const token = req.headers.authorization;
+  const secretKey = 'yourSecretKey';
+
+  // Check if token is provided
+  if (!token) {
+    return res.status(400).json({ error: 'Token not provided' });
+  }
+
   try {
-    const token = req.cookies.token;
-    const secretKey = 'yourSecretKey';
+    // Verify the token
+    const decoded = jwt.verify(token, secretKey );
 
-
-    if (!token) {
-      console.log('no token found');
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    // Verify token
-    const decoded = jwt.verify(token, secretKey);
-
-    const userId = decoded.userId;
-
-    // Token verification successful
-    res.status(200).json({ userId: userId, message: 'Token verified' });
+    // If verification successful, respond with decoded user ID and email
+    res.json({ userId: decoded.userId, email: decoded.email });
   } catch (error) {
-    console.log(error);
-    // Handle token verification errors
-    if (error.name === 'TokenExpiredError') {
-      // Clear cookie and return unauthorized
-      res.clearCookie('token');
-      return res.status(401).json({ message: 'Session expired. Please log in again.' });
-    }
-    // Other token verification errors
-    return res.status(401).json({ message: 'Unauthorized' });
+    // If verification fails, respond with valid: false
+    res.status(401).json({ error: 'Invalid token' });
   }
 });
 
