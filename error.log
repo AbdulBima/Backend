@@ -1,0 +1,1 @@
+{"level":"error","message":"Error connecting to MongoDB: Server selection timed out after 30000 ms","service":"user-service","timestamp":"2024-06-08T18:49:04.716Z"}

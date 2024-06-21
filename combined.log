@@ -1,0 +1,13 @@
+{"level":"info","message":"Connected to MongoDB","service":"user-service","timestamp":"2024-06-08T17:14:49.953Z"}
+{"level":"info","message":"Server running on port 3002","service":"user-service","timestamp":"2024-06-08T17:14:50.027Z"}
+{"level":"info","message":"Connected to MongoDB","service":"user-service","timestamp":"2024-06-08T17:33:48.020Z"}
+{"level":"info","message":"Server running on port 3002","service":"user-service","timestamp":"2024-06-08T17:33:48.058Z"}
+{"level":"info","message":"Connected to MongoDB","service":"user-service","timestamp":"2024-06-08T17:42:35.850Z"}
+{"level":"info","message":"Server running on port 3002","service":"user-service","timestamp":"2024-06-08T17:42:36.187Z"}
+{"level":"info","message":"Connected to MongoDB","service":"user-service","timestamp":"2024-06-08T17:48:14.607Z"}
+{"level":"info","message":"Server running on port 3002","service":"user-service","timestamp":"2024-06-08T17:48:14.638Z"}
+{"level":"info","message":"Connected to MongoDB","service":"user-service","timestamp":"2024-06-08T17:51:21.404Z"}
+{"level":"info","message":"Server running on port 3002","service":"user-service","timestamp":"2024-06-08T17:51:21.502Z"}
+{"level":"error","message":"Error connecting to MongoDB: Server selection timed out after 30000 ms","service":"user-service","timestamp":"2024-06-08T18:49:04.716Z"}
+{"level":"info","message":"Connected to MongoDB","service":"user-service","timestamp":"2024-06-08T19:06:57.997Z"}
+{"level":"info","message":"Server running on port 3002","service":"user-service","timestamp":"2024-06-08T19:06:58.892Z"}
