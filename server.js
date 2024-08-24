@@ -57,7 +57,7 @@ app.use(morgan('combined')); // Logging middleware
 app.use(cookieParser()); // Parse cookies
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: false })); // Parse URL-encoded bodies
-app.use(cors({ origin: [FRONTEND2, FRONTEND3, FRONTEND4 , FRONTEND5 , FRONTEND6, FRONTEND7, FRONTEND8, FRONTEND9, FRONTEND10, FRONTEND11, ], credentials: true }));
+app.use(cors({ origin: [FRONTEND2, FRONTEND3, FRONTEND4 , FRONTEND5 , FRONTEND6, FRONTEND7, FRONTEND8, FRONTEND9, FRONTEND10, FRONTEND11, FRONTEND12], credentials: true }));
 app.use(compression()); // Enable compression
 
 
