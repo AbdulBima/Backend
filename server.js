@@ -42,6 +42,7 @@ const FRONTEND8 = process.env.FRONTEND8;
 const FRONTEND9 = process.env.FRONTEND9;
 const FRONTEND10 = process.env.FRONTEND10;
 const FRONTEND11 = process.env.FRONTEND11;
+const FRONTEND12 = process.env.FRONTEND12;
 
 
 
